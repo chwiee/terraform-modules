@@ -10,13 +10,11 @@ variable "region" {
 
 variable "vpc_block" {
   description = "Bloco de configuração da VPC"
-  type = map(object({
-    cidr_block             = string
-    enabled_dns_support    = bool
-    enabled_dns_hostnames  = bool
-    tags                   = map(string)
-    vpc_additional_cidrs   = optional(list(string), [])
-  }))
+  cidr_block             = string
+  enabled_dns_support    = bool
+  enabled_dns_hostnames  = bool
+  tags                   = map(string)
+  vpc_additional_cidrs   = optional(list(string), [])
 }
 
 variable "public_subnets" {
