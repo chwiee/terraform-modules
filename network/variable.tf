@@ -8,13 +8,15 @@ variable "region" {
   type        = string
 }
 
-variable "vpc_block" {
-  description = "Bloco de configuração da VPC"
-  cidr_block             = string
-  enabled_dns_support    = bool
-  enabled_dns_hostnames  = bool
-  tags                   = map(string)
-  vpc_additional_cidrs   = optional(list(string), [])
+variable "vpc_cidr" {
+  description = "VPC CIDR Block"
+  type       = string
+}
+
+variable "vpc_additional_cidrs" {
+  type        = list(string)
+  description = "Lista de CIDR's adicionais da VPC"
+  default     = []
 }
 
 variable "public_subnets" {
@@ -45,9 +47,4 @@ variable "database_subnets" {
 variable "azs" {
   description = "Zonas de disponibilidade onde o NAT Gateway será criado"
   type        = set(string)
-}
-
-variable "vpc_id" {
-  description = "ID da VPC, caso seja injetada de outro módulo"
-  type        = string
 }
