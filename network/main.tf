@@ -4,14 +4,20 @@
 #    \_/ |_|  \___|
 resource "aws_vpc" "main" {
   cidr_block           = var.cidr_block
-  enable_dns_support   = var.enabled_dns_support
-  enable_dns_hostnames = var.enabled_dns_hostnames
+  enable_dns_support   = true
+  enable_dns_hostnames = true
 
   tags = {
     Name = "${var.project_name}-vpc"
   }
 }
 
+resource "aws_vpc_ipv4_cidr_block_association" "main" {
+  count = length(var.vpc_additional_cidrs)
+
+  vpc_id     = aws_vpc.main.id
+  cidr_block = var.vpc_additional_cidrs[count.index]
+}
 
 #   ___ _   _ ___ _  _ ___ _____   ___ _   _ ___ _    ___ ___ 
 #  / __| | | | _ ) \| | __|_   _| | _ \ | | | _ ) |  |_ _/ __|
@@ -35,6 +41,10 @@ resource "aws_route_table" "public_internet_access" {
   tags = {
     Name = "${var.project_name}-public"
   }
+
+  depends_on = [
+    aws_vpc_ipv4_cidr_block_association.main
+  ]
 }
 
 resource "aws_route" "public_access" {
