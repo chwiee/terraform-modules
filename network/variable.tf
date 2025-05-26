@@ -49,11 +49,6 @@ variable "azs" {
   type        = set(string)
 }
 
-variable "public_subnet_ids" {
-  description = "IDs das subnets públicas onde os NAT Gateways serão criados"
-  type        = map(string)
-}
-
 variable "vpc_id" {
   description = "ID da VPC, caso seja injetada de outro módulo"
   type        = string
