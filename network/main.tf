@@ -78,7 +78,7 @@ resource "aws_subnet" "private" {
 resource "aws_route_table" "private" {
   for_each = var.private_subnets
 
-  vpc_id = var.vpc_id
+  vpc_id = aws_vpc.main.id
 
   tags = {
     Name = "${var.project_name}-private-${each.key}"
