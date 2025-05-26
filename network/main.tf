@@ -122,12 +122,10 @@ resource "aws_eip" "this" {
 
 resource "aws_nat_gateway" "this" {
   for_each      = var.azs
-  subnet_id     = var.public_subnet_ids[each.key]
+  subnet_id     = aws_subnet.public[each.key].id
   allocation_id = aws_eip.this[each.key].id
-  tags = {
-    Name = "${var.project_name}-nat-${each.key}"
-  }
 }
+
 
 #   ___ _  _ _____ ___ ___ _  _ ___ _____    ___   _ _____ _____      ___   
 #  |_ _| \| |_   _| __| _ \ \| | __|_   _|  / __| /_\_   _| __\ \    / /_\  
