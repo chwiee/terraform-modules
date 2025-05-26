@@ -3,11 +3,9 @@
 #   \ V /|  _/ (__ 
 #    \_/ |_|  \___|
 resource "aws_vpc" "main" {
-  for_each = var.vpc_block
-
-  cidr_block           = each.value.cidr_block
-  enable_dns_support   = each.value.enabled_dns_support
-  enable_dns_hostnames = each.value.enabled_dns_hostnames
+  cidr_block           = cidr_block
+  enable_dns_support   = enabled_dns_support
+  enable_dns_hostnames = enabled_dns_hostnames
 
   tags = {
     Name = "${var.project_name}-vpc"
