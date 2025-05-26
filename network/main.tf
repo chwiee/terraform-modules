@@ -2,7 +2,7 @@
 #  \ \ / / _ \/ __|
 #   \ V /|  _/ (__ 
 #    \_/ |_|  \___|
-resource "aws_vpc" "this" {
+resource "aws_vpc" "main" {
   for_each = var.vpc_block
 
   cidr_block           = each.value.cidr_block
